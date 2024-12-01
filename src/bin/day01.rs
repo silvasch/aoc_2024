@@ -1,10 +1,4 @@
-use aoc::{run, Day, Example, Part, Solver};
-
-const INPUT: &str = include_str!("../../inputs/day01/input.txt");
-const EXAMPLE_INPUT_ONE: &str = include_str!("../../inputs/day01/part01-example-input.txt");
-const EXAMPLE_OUTPUT_ONE: &str = include_str!("../../inputs/day01/part01-example-output.txt");
-const EXAMPLE_INPUT_TWO: &str = include_str!("../../inputs/day01/part02-example-input.txt");
-const EXAMPLE_OUTPUT_TWO: &str = include_str!("../../inputs/day01/part02-example-output.txt");
+use aoc::{read_example_input, read_example_output, read_input, run, Day, Example, Part, Solver};
 
 struct SolverOne;
 
@@ -74,19 +68,19 @@ impl<'a> Solver<'a, u64> for SolverTwo {
 }
 
 fn main() {
-    let example_one = Example::new(
-        EXAMPLE_INPUT_ONE,
-        EXAMPLE_OUTPUT_ONE.trim().parse().unwrap(),
-    );
-    let example_two = Example::new(
-        EXAMPLE_INPUT_TWO,
-        EXAMPLE_OUTPUT_TWO.trim().parse().unwrap(),
-    );
+    let input = read_input(1).unwrap_or_default();
+    let example_input_one = read_example_input(1, 1).unwrap_or_default();
+    let example_output_one = read_example_output::<u64>(1, 1).unwrap_or_default();
+    let example_input_two = read_example_input(1, 2).unwrap_or_default();
+    let example_output_two = read_example_output::<u64>(1, 2).unwrap_or_default();
+
+    let example_one = Example::new(&example_input_one, example_output_one);
+    let example_two = Example::new(&example_input_two, example_output_two);
 
     let part_one = Part::new(&SolverOne, example_one);
     let part_two = Part::new(&SolverTwo, example_two);
 
-    let day = Day::new(1, "Historian Hysteria", INPUT, part_one, part_two);
+    let day = Day::new(1, "Historian Hysteria", &input, part_one, part_two);
 
     run(day);
 }
