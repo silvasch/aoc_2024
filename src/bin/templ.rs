@@ -1,5 +1,5 @@
 // Read the input from /inputs/day-{}.txt
-const INPUT: &str = aoc_2024b::read_input!("00");
+const INPUT: &str = aoc_2024::read_input!("00");
 
 // All these variables are only used in tests,
 // which is why rust-analyzer thinks they are unused.
@@ -33,7 +33,7 @@ fn solve_two(input: &str) -> String {
 
 // Creates the main function and a test module
 // to run the examples.
-aoc_2024b::run!(
+aoc_2024::run!(
     INPUT,
     examples::INPUT_ONE => examples::OUTPUT_ONE,
     examples::INPUT_TWO => examples::OUTPUT_TWO
