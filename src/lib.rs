@@ -18,17 +18,30 @@ macro_rules! run {
         $example_input_two:expr => $example_output_two:expr
     ) => {
         fn main() {
-            #[cfg(feature = "part-one")]
+            #[cfg(all(feature = "part-one", feature = "part-two"))]
             {
-                eprintln!("part one:");
-                println!("{}", solve_one($input));
+                run_part_one();
+                eprintln!();
+                run_part_two();
             }
 
-            #[cfg(feature = "part-two")]
-            {
-                eprintln!("part two:");
-                println!("{}", solve_two($input));
-            }
+            #[cfg(all(feature = "part-one", not(feature = "part-two")))]
+            run_part_one();
+
+            #[cfg(all(not(feature = "part-one"), feature = "part-two"))]
+            run_part_two();
+        }
+
+        #[cfg(feature = "part-one")]
+        fn run_part_one() {
+            eprintln!("part one:");
+            println!("{}", solve_one($input));
+        }
+
+        #[cfg(feature = "part-two")]
+        fn run_part_two() {
+            eprintln!("part two:");
+            println!("{}", solve_two($input));
         }
 
         #[cfg(test)]
