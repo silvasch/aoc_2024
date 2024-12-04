@@ -21,13 +21,13 @@ macro_rules! run {
             #[cfg(feature = "part-one")]
             {
                 eprintln!("part one:");
-                println!("{}", solve_one($input).unwrap());
+                println!("{}", solve_one($input));
             }
 
             #[cfg(feature = "part-two")]
             {
                 eprintln!("part two:");
-                println!("{}", solve_two($input).unwrap());
+                println!("{}", solve_two($input));
             }
         }
 
@@ -38,13 +38,13 @@ macro_rules! run {
             #[cfg(feature = "part-one")]
             #[test]
             fn part_one_test() {
-                assert_eq!(solve_one($example_input_one).unwrap(), $example_output_one);
+                assert_eq!(solve_one($example_input_one), $example_output_one);
             }
 
             #[cfg(feature = "part-two")]
             #[test]
             fn part_two_test() {
-                assert_eq!(solve_two($example_input_two).unwrap(), $example_output_two);
+                assert_eq!(solve_two($example_input_two), $example_output_two);
             }
         }
     };

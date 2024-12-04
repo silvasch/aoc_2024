@@ -13,22 +13,22 @@ mod examples {
 
 // The solution for the first part.
 #[cfg(feature = "part-one")]
-fn solve_one(input: &str) -> Result<String, anyhow::Error> {
-    Ok(input
+fn solve_one(input: &str) -> String {
+    input
         .split_whitespace()
         .map(|v| v.parse::<i32>().unwrap())
         .sum::<i32>()
-        .to_string())
+        .to_string()
 }
 
 // The solution of the second part.
 #[cfg(feature = "part-two")]
-fn solve_two(input: &str) -> Result<String, anyhow::Error> {
-    Ok(input
+fn solve_two(input: &str) -> String {
+    input
         .split_whitespace()
         .map(|v| v.parse::<i32>().unwrap())
         .product::<i32>()
-        .to_string())
+        .to_string()
 }
 
 // Creates the main function and a test module

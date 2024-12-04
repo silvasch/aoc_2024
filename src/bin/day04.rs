@@ -41,7 +41,7 @@ fn get_char_from_coords(input: &str, coords: (usize, usize)) -> Option<char> {
 }
 
 #[cfg(feature = "part-one")]
-fn solve_one(input: &str) -> Result<String, anyhow::Error> {
+fn solve_one(input: &str) -> String {
     let mut word_count = 0;
 
     let mut lines = vec![];
@@ -130,11 +130,11 @@ fn solve_one(input: &str) -> Result<String, anyhow::Error> {
         word_count += line.matches("SAMX").count();
     }
 
-    Ok(word_count.to_string())
+    word_count.to_string()
 }
 
 #[cfg(feature = "part-two")]
-fn solve_two(input: &str) -> Result<String, anyhow::Error> {
+fn solve_two(input: &str) -> String {
     let mut count = 0;
 
     let line_length = input.lines().next().unwrap().len();
@@ -161,7 +161,7 @@ fn solve_two(input: &str) -> Result<String, anyhow::Error> {
         }
     }
 
-    Ok(count.to_string())
+    count.to_string()
 }
 
 run!(
