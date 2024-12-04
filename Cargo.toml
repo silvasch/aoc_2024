@@ -1,0 +1,18 @@
+[package]
+name = "aoc_2024b"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.94"
+location-macros = "0.1.2"
+tracing = {version = "0.1.41", features = ["attributes"]}
+tracing-subscriber = "0.3.19"
+tracing-test = "0.2.5"
+
+[features]
+default = ["part-one", "part-two"]
+part-one = []
+part-two = []
