@@ -3,4 +3,5 @@
 /.direnv
 /result
 
-/inputs
+/inputs/*
+!/inputs/day00.txt
