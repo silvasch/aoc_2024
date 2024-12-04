@@ -1,4 +1,4 @@
-// Read the input from /inputs/day-{}.txt
+// Read the input from /inputs/day{}.txt
 const INPUT: &str = aoc_2024b::read_input!("03");
 
 // All these variables are only used in tests,

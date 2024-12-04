@@ -1,5 +1,5 @@
 // Read the input from /inputs/day-{}.txt
-const INPUT: &str = aoc_2024b::read_input!("templ");
+const INPUT: &str = aoc_2024b::read_input!("00");
 
 // All these variables are only used in tests,
 // which is why rust-analyzer thinks they are unused.

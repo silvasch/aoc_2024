@@ -1,11 +1,11 @@
-use aoc_2024b::{read_input, run};
-
-const INPUT: &str = read_input!("04");
+// Read the input from /inputs/day{}.txt
+const INPUT: &str = aoc_2024b::read_input!("04");
 
 // All these variables are only used in tests,
 // which is why rust-analyzer thinks they are unused.
 #[allow(unused)]
-const EXAMPLE_INPUT_ONE: &str = r#"MMMSXXMASM
+mod examples {
+    pub const INPUT_ONE: &str = r#"MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
 MSAMASMSMX
@@ -15,12 +15,8 @@ SMSMSASXSS
 SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX"#;
-
-#[allow(unused)]
-const EXAMPLE_OUTPUT_ONE: &str = "18";
-
-#[allow(unused)]
-const EXAMPLE_INPUT_TWO: &str = r#"MMMSXXMASM
+    pub const OUTPUT_ONE: &str = "18";
+    pub const INPUT_TWO: &str = r#"MMMSXXMASM
 MSAMXMSMSA
 AMXSXMAAMM
 MSAMASMSMX
@@ -30,9 +26,8 @@ SMSMSASXSS
 SAXAMASAAA
 MAMMMXMMMM
 MXMXAXMASX"#;
-
-#[allow(unused)]
-const EXAMPLE_OUTPUT_TWO: &str = "9";
+    pub const OUTPUT_TWO: &str = "9";
+}
 
 fn get_char_from_coords(input: &str, coords: (usize, usize)) -> Option<char> {
     let line = input.lines().nth(coords.1)?;
@@ -40,6 +35,7 @@ fn get_char_from_coords(input: &str, coords: (usize, usize)) -> Option<char> {
     Some(ch)
 }
 
+// The solution for the first part.
 #[cfg(feature = "part-one")]
 fn solve_one(input: &str) -> String {
     let mut word_count = 0;
@@ -133,6 +129,7 @@ fn solve_one(input: &str) -> String {
     word_count.to_string()
 }
 
+// The solution of the second part.
 #[cfg(feature = "part-two")]
 fn solve_two(input: &str) -> String {
     let mut count = 0;
@@ -164,8 +161,10 @@ fn solve_two(input: &str) -> String {
     count.to_string()
 }
 
-run!(
+// Creates the main function and a test module
+// to run the examples.
+aoc_2024b::run!(
     INPUT,
-    EXAMPLE_INPUT_ONE => EXAMPLE_OUTPUT_ONE,
-    EXAMPLE_INPUT_TWO => EXAMPLE_OUTPUT_TWO
+    examples::INPUT_ONE => examples::OUTPUT_ONE,
+    examples::INPUT_TWO => examples::OUTPUT_TWO
 );
