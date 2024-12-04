@@ -1,6 +1,38 @@
-use aoc_2024b::read_input;
+use aoc_2024b::{read_input, run};
 
-const INPUT: &str = read_input!(4);
+const INPUT: &str = read_input!("04");
+
+// All these variables are only used in tests,
+// which is why rust-analyzer thinks they are unused.
+#[allow(unused)]
+const EXAMPLE_INPUT_ONE: &str = r#"MMMSXXMASM
+MSAMXMSMSA
+AMXSXMAAMM
+MSAMASMSMX
+XMASAMXAMM
+XXAMMXXAMA
+SMSMSASXSS
+SAXAMASAAA
+MAMMMXMMMM
+MXMXAXMASX"#;
+
+#[allow(unused)]
+const EXAMPLE_OUTPUT_ONE: &str = "18";
+
+#[allow(unused)]
+const EXAMPLE_INPUT_TWO: &str = r#"MMMSXXMASM
+MSAMXMSMSA
+AMXSXMAAMM
+MSAMASMSMX
+XMASAMXAMM
+XXAMMXXAMA
+SMSMSASXSS
+SAXAMASAAA
+MAMMMXMMMM
+MXMXAXMASX"#;
+
+#[allow(unused)]
+const EXAMPLE_OUTPUT_TWO: &str = "9";
 
 fn get_char_from_coords(input: &str, coords: (usize, usize)) -> Option<char> {
     let line = input.lines().nth(coords.1)?;
@@ -9,33 +41,26 @@ fn get_char_from_coords(input: &str, coords: (usize, usize)) -> Option<char> {
 }
 
 #[cfg(feature = "part-one")]
-#[tracing::instrument(skip(input))]
 fn solve_one(input: &str) -> Result<String, anyhow::Error> {
     let mut word_count = 0;
 
     let mut lines = vec![];
 
     // horizontal lines
-    tracing::debug!("now generating horizontal lines");
     for line in input.lines() {
-        let new_line = line.to_string();
-        tracing::debug!("new line: {}", new_line);
         lines.push(line.to_string());
     }
 
     // vertical lines
-    tracing::debug!("now generating vertical lines");
     let line_length = input.lines().next().unwrap().len();
     for index in 0..line_length {
         let mut new_line = String::new();
         for line in input.lines() {
             new_line.push(line.chars().nth(index).unwrap());
         }
-        tracing::debug!("new line: {}", new_line);
         lines.push(new_line);
     }
 
-    tracing::debug!("now generating diagonal lines from the top left");
     let mut starts = vec![];
 
     for (i, _) in input.lines().enumerate() {
@@ -63,11 +88,9 @@ fn solve_one(input: &str) -> Result<String, anyhow::Error> {
             offset += 1;
         }
 
-        tracing::debug!("new line: {}", new_line);
         lines.push(new_line);
     }
 
-    tracing::debug!("now generating diagonal lines from the top right");
     let mut starts = vec![];
 
     for i in 0..input.lines().count() {
@@ -81,8 +104,6 @@ fn solve_one(input: &str) -> Result<String, anyhow::Error> {
     for (start_x, start_y) in starts {
         let mut new_line = String::new();
         let mut offset = 0;
-
-        tracing::debug!("{:?}", (start_x, start_y));
 
         loop {
             if start_x < offset {
@@ -101,7 +122,6 @@ fn solve_one(input: &str) -> Result<String, anyhow::Error> {
             offset += 1;
         }
 
-        tracing::debug!("new line: {}", new_line);
         lines.push(new_line);
     }
 
@@ -114,7 +134,6 @@ fn solve_one(input: &str) -> Result<String, anyhow::Error> {
 }
 
 #[cfg(feature = "part-two")]
-#[tracing::instrument(skip(input))]
 fn solve_two(input: &str) -> Result<String, anyhow::Error> {
     let mut count = 0;
 
@@ -145,59 +164,8 @@ fn solve_two(input: &str) -> Result<String, anyhow::Error> {
     Ok(count.to_string())
 }
 
-fn main() {
-    tracing_subscriber::fmt::init();
-
-    #[cfg(feature = "part-one")]
-    println!("{}", solve_one(INPUT).unwrap());
-
-    #[cfg(feature = "part-two")]
-    println!("{}", solve_two(INPUT).unwrap());
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[cfg(feature = "part-one")]
-    #[tracing_test::traced_test]
-    #[test]
-    fn part_one_test() {
-        let input = r#"MMMSXXMASM
-MSAMXMSMSA
-AMXSXMAAMM
-MSAMASMSMX
-XMASAMXAMM
-XXAMMXXAMA
-SMSMSASXSS
-SAXAMASAAA
-MAMMMXMMMM
-MXMXAXMASX"#;
-        let expected_output = "18".to_string();
-
-        let output = solve_one(&input).unwrap();
-
-        assert_eq!(output, expected_output);
-    }
-
-    #[cfg(feature = "part-two")]
-    #[tracing_test::traced_test]
-    #[test]
-    fn part_two_test() {
-        let input = r#"MMMSXXMASM
-MSAMXMSMSA
-AMXSXMAAMM
-MSAMASMSMX
-XMASAMXAMM
-XXAMMXXAMA
-SMSMSASXSS
-SAXAMASAAA
-MAMMMXMMMM
-MXMXAXMASX"#;
-        let expected_output = "9".to_string();
-
-        let output = solve_two(&input).unwrap();
-
-        assert_eq!(output, expected_output);
-    }
-}
+run!(
+    INPUT,
+    EXAMPLE_INPUT_ONE => EXAMPLE_OUTPUT_ONE,
+    EXAMPLE_INPUT_TWO => EXAMPLE_OUTPUT_TWO
+);
