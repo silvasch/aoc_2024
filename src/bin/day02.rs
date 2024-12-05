@@ -23,13 +23,21 @@ mod examples {
 
 // The solution for the first part.
 #[cfg(feature = "part-one")]
-fn solve_one(_input: &str) -> String {
+#[expect(
+    unused,
+    reason = "now that your solution uses `input`, this `expect` attribute can be removed."
+)]
+fn solve_one(input: &str) -> String {
     todo!()
 }
 
 // The solution of the second part.
 #[cfg(feature = "part-two")]
-fn solve_two(_input: &str) -> String {
+#[expect(
+    unused,
+    reason = "now that your solution uses `input`, this `expect` attribute can be removed."
+)]
+fn solve_two(input: &str) -> String {
     todo!()
 }
 
