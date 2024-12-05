@@ -47,7 +47,7 @@ fn solve_one(input: &str) -> String {
     sum.to_string()
 }
 
-// The solution of the second part.
+// The solution for the second part.
 #[cfg(feature = "part-two")]
 fn solve_two(input: &str) -> String {
     let mut sum = 0;

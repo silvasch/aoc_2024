@@ -129,7 +129,7 @@ fn solve_one(input: &str) -> String {
     word_count.to_string()
 }
 
-// The solution of the second part.
+// The solution for the second part.
 #[cfg(feature = "part-two")]
 fn solve_two(input: &str) -> String {
     let mut count = 0;

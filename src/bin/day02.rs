@@ -21,23 +21,64 @@ mod examples {
     pub const OUTPUT_TWO: &str = "4";
 }
 
-// The solution for the first part.
-#[cfg(feature = "part-one")]
-#[expect(
-    unused,
-    reason = "now that your solution uses `input`, this `expect` attribute can be removed."
-)]
-fn solve_one(input: &str) -> String {
-    todo!()
+#[derive(Debug)]
+struct Report {
+    pub levels: Vec<u32>,
 }
 
-// The solution of the second part.
+fn parse_input(input: &str) -> Vec<Report> {
+    input
+        .lines()
+        .map(|line| Report {
+            levels: line
+                .split_whitespace()
+                .map(|v| v.parse().unwrap())
+                .collect(),
+        })
+        .collect()
+}
+
+// The solution for the first part.
+fn solve_one(input: &str) -> String {
+    let reports = parse_input(input);
+
+    let mut num_of_safe_reports = 0;
+
+    'reports: for report in reports {
+        let is_increasing =
+            report.levels.iter().nth(0).unwrap() < report.levels.iter().nth(1).unwrap();
+
+        let mut levels = report.levels.iter();
+
+        let mut lhs = levels.next().unwrap();
+
+        while let Some(rhs) = levels.next() {
+            if (lhs < rhs) != is_increasing {
+                continue 'reports;
+            }
+
+            if !(1..=3).contains(&lhs.abs_diff(*rhs)) {
+                continue 'reports;
+            }
+
+            lhs = rhs;
+        }
+
+        num_of_safe_reports += 1;
+    }
+
+    num_of_safe_reports.to_string()
+}
+
+// The solution for the second part.
 #[cfg(feature = "part-two")]
-#[expect(
-    unused,
-    reason = "now that your solution uses `input`, this `expect` attribute can be removed."
-)]
-fn solve_two(input: &str) -> String {
+fn solve_two(
+    #[expect(
+        unused,
+        reason = "now that your solution uses `input`, this `expect` attribute can be removed."
+    )]
+    input: &str,
+) -> String {
     todo!()
 }
 
