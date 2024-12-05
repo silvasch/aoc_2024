@@ -1,5 +1,3 @@
-use std::cmp::Ordering;
-
 // Read the input from /inputs/day-{}.txt
 const INPUT: &str = aoc_2024::read_input!("05");
 
