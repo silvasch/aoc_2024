@@ -99,17 +99,46 @@ impl Update {
     }
 
     pub fn order_pages(&mut self, rules: &[Rule]) {
-        // TODO(challenge): implement own sorting algorithm
-        self.pages.sort_by(|a, b| {
-            for rule in rules {
-                if *a == rule.before && *b == rule.after {
-                    return Ordering::Less;
-                } else if *a == rule.after && *b == rule.before {
-                    return Ordering::Greater;
+        // Keeps track of the current rule. This is reset to zero everytime
+        // two elements have to be swapped to obey the rules.
+        let mut rule_index = 0;
+
+        // Repeat the body of this loop until loop_index points outside
+        // of the rules vector (i. e. all rules are obeyed).
+        while let Some(rule) = rules.get(rule_index) {
+            // Find the index of the element that the rule specifies as having to be
+            // before another number.
+            let before_index = match self.pages.iter().position(|page| *page == rule.before) {
+                Some(before_index) => before_index,
+                None => {
+                    // If the element can not be found, this rule does not apply.
+                    rule_index += 1;
+                    continue;
                 }
+            };
+            // Find the index of the element that the rule specifies as having to be
+            // after another number.
+            let after_index = match self.pages.iter().position(|page| *page == rule.after) {
+                Some(after_index) => after_index,
+                None => {
+                    // If the element can not be found, this rule does not apply.
+                    rule_index += 1;
+                    continue;
+                }
+            };
+
+            // Check if the rule is already obeyed.
+            if after_index < before_index {
+                // The rule is not obeyed, and the elements need to be swapped.
+                // After the swap, the algorithm has to start from the beginning.
+                self.pages[after_index] = rule.before;
+                self.pages[before_index] = rule.after;
+                rule_index = 0;
+            } else {
+                // The rule is already obeyed, we can move to the next one.
+                rule_index += 1;
             }
-            Ordering::Less
-        })
+        }
     }
 
     pub fn middle_page(&self) -> u32 {
