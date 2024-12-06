@@ -63,7 +63,7 @@ fn solve_one(input: &str) -> String {
         starts.push((0, i));
     }
 
-    for i in 1..input.lines().nth(0).unwrap().chars().count() {
+    for i in 1..input.lines().next().unwrap().chars().count() {
         starts.push((i, 0));
     }
 
@@ -71,11 +71,7 @@ fn solve_one(input: &str) -> String {
         let mut new_line = String::new();
         let mut offset = 0;
 
-        loop {
-            let line = match input.lines().nth(start_y + offset) {
-                Some(line) => line,
-                None => break,
-            };
+        while let Some(line) = input.lines().nth(start_y + offset) {
             let ch = match line.chars().nth(start_x + offset) {
                 Some(line) => line,
                 None => break,

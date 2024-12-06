@@ -87,7 +87,7 @@ fn solve_one(input: &str) -> String {
 
     let mut scanner = Scanner::new(input);
 
-    while let Some(_) = scanner.peek(0) {
+    while scanner.peek(0).is_some() {
         if scanner.expect(0, "mul(") {
             scanner.advance(4);
             let lhs = match scanner.make_number() {
@@ -128,7 +128,7 @@ fn solve_two(input: &str) -> String {
 
     let mut do_count = true;
 
-    while let Some(_) = scanner.peek(0) {
+    while scanner.peek(0).is_some() {
         if scanner.expect(0, "mul(") {
             scanner.advance(4);
             let lhs = match scanner.make_number() {

@@ -45,14 +45,13 @@ fn solve_one(input: &str) -> String {
     let mut num_of_safe_reports = 0;
 
     'reports: for report in reports {
-        let is_increasing =
-            report.levels.iter().nth(0).unwrap() < report.levels.iter().nth(1).unwrap();
+        let is_increasing = report.levels.first().unwrap() < report.levels.get(1).unwrap();
 
         let mut levels = report.levels.iter();
 
         let mut lhs = levels.next().unwrap();
 
-        while let Some(rhs) = levels.next() {
+        for rhs in levels {
             if (lhs < rhs) != is_increasing {
                 continue 'reports;
             }
