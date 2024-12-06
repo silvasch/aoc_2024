@@ -45,7 +45,7 @@ macro_rules! run {
         }
 
         #[cfg(test)]
-        mod tests {
+        mod examples_tests {
             use super::*;
 
             #[cfg(feature = "part-one")]
