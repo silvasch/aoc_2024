@@ -16,8 +16,17 @@ mod examples {
 #.........
 ......#..."#;
     pub const OUTPUT_ONE: &str = "41";
-    pub const INPUT_TWO: &str = "";
-    pub const OUTPUT_TWO: &str = "";
+    pub const INPUT_TWO: &str = r#"....#.....
+.........#
+..........
+..#.......
+.......#..
+..........
+.#..^.....
+........#.
+#.........
+......#..."#;
+    pub const OUTPUT_TWO: &str = "6";
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -49,7 +58,6 @@ impl Direction {
 #[derive(Debug)]
 struct Map {
     pub width: usize,
-    pub height: usize,
 
     pub tiles: Vec<Tile>,
 }
@@ -77,7 +85,6 @@ impl Map {
 }
 
 fn parse_input(input: &str) -> (Map, (usize, usize)) {
-    let height = input.lines().count();
     let width = input.lines().next().unwrap().len();
 
     let mut tiles = vec![];
@@ -98,14 +105,7 @@ fn parse_input(input: &str) -> (Map, (usize, usize)) {
         }
     }
 
-    (
-        Map {
-            width,
-            height,
-            tiles,
-        },
-        starting_position,
-    )
+    (Map { width, tiles }, starting_position)
 }
 
 // The solution for the first part.
